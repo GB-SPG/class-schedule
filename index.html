@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class Schedule — 2nd Semester</title>
+
+<style>
+    @page {
+        size: A4 landscape;
+        margin: 8mm;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        color: #000;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        padding: 20px;
+    }
+
+    .page {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+        text-align: center;
+        margin-bottom: 16px;
+    }
+
+    .header img {
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+        margin-bottom: 5px;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .header h2 {
+        margin: 4px 0 0;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .header h3 {
+        margin: 5px 0 0;
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    /* Routine table */
+    .routine-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        font-size: 11px;
+    }
+
+    .routine-table th,
+    .routine-table td {
+        border: 1px solid #000;
+        padding: 7px 4px;
+        text-align: center;
+        vertical-align: middle;
+        word-wrap: break-word;
+    }
+
+    .routine-table thead th {
+        font-weight: 700;
+        background: #fff;
+    }
+
+    .routine-table .day-col {
+        width: 85px;
+    }
+
+    .day-name {
+        font-weight: 700;
+    }
+
+    .class-box {
+        line-height: 1.25;
+    }
+
+    .class-code {
+        display: block;
+        font-weight: 700;
+        font-size: 11px;
+    }
+
+    .class-details {
+        display: block;
+        margin-top: 2px;
+        font-size: 9.5px;
+    }
+
+    .empty {
+        color: #000;
+    }
+
+    .no-class {
+        font-style: italic;
+        font-weight: 400;
+    }
+
+    /*
+     * The routine is deliberately given a controlled height.
+     * This prevents the table from becoming too tall when printed
+     * and keeps the complete schedule on one A4 landscape page.
+     */
+    .routine-table {
+        height: 135mm;
+    }
+
+    .routine-table thead {
+        height: 18mm;
+    }
+
+    .routine-table tbody tr {
+        height: 16.7mm;
+    }
+
+    /* Footer */
+    .footer {
+        margin-top: 12px;
+        padding-top: 8px;
+        border-top: 1px solid #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 10px;
+        text-align: center;
+    }
+
+    .footer img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+    }
+
+    .print-btn {
+        display: block;
+        margin: 12px auto 0;
+        padding: 7px 16px;
+        background: #fff;
+        color: #000;
+        border: 1px solid #000;
+        border-radius: 0;
+        font: inherit;
+        font-size: 11px;
+        cursor: pointer;
+    }
+
+    .print-btn:hover {
+        background: #f2f2f2;
+    }
+
+    /* Screen only */
+    @media screen {
+        .routine-table {
+            min-width: 900px;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+    }
+
+    /* Print */
+    @media print {
+        @page {
+            size: A4 landscape;
+            margin: 8mm;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+        }
+
+        .page {
+            width: 100%;
+            max-width: none;
+            height: 194mm;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            height: 31mm;
+            margin: 0 0 4mm;
+            padding: 0;
+        }
+
+        .header img {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 2px;
+        }
+
+        .header h1 {
+            font-size: 16px;
+            line-height: 1.15;
+        }
+
+        .header h2 {
+            margin-top: 2px;
+            font-size: 11px;
+            line-height: 1.15;
+        }
+
+        .header h3 {
+            margin-top: 3px;
+            font-size: 10px;
+            line-height: 1.15;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow: visible;
+        }
+
+        .routine-table {
+            width: 100%;
+            height: 135mm;
+            min-width: 0;
+            table-layout: fixed;
+            border-collapse: collapse;
+            font-size: 8.5px;
+        }
+
+        .routine-table thead {
+            height: 18mm;
+        }
+
+        .routine-table tbody tr {
+            height: 16.7mm;
+        }
+
+        .routine-table th,
+        .routine-table td {
+            padding: 3px 2px;
+            line-height: 1.15;
+        }
+
+        .routine-table .day-col {
+            width: 20mm;
+        }
+
+        .class-code {
+            font-size: 8.5px;
+            line-height: 1.15;
+        }
+
+        .class-details {
+            margin-top: 1px;
+            font-size: 7.5px;
+            line-height: 1.1;
+        }
+
+        .footer {
+            height: 9mm;
+            margin-top: 3mm;
+            padding-top: 2mm;
+            font-size: 8px;
+        }
+
+        .footer img {
+            width: 15px;
+            height: 15px;
+        }
+
+        .print-btn {
+            display: none !important;
+        }
+
+        .routine-table,
+        .routine-table tr,
+        .routine-table td,
+        .routine-table th {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+    }
+
+</style>
+</head>
+
+<body>
+<div class="page">
+
+    <header class="header">
+        <img src="Gono_Bishwabidyalay_Logo.svg" alt="Gono Bishwabidyalay Logo">
+        <h1>Gono Bishwabidyalay</h1>
+        <h2>Department of Politics and Governance</h2>
+        <h3>Class Schedule — 2<sup>nd</sup> Semester</h3>
+    </header>
+
+    <div class="table-wrap">
+        <table class="routine-table">
+            <thead>
+                <tr>
+                    <th class="day-col">Day / Time</th>
+                    <th>09:10 - 09:50</th>
+                    <th>10:00 - 10:40</th>
+                    <th>10:50 - 11:30</th>
+                    <th>11:40 - 12:20</th>
+                    <th>12:30 - 01:10</th>
+                    <th>01:15 - 01:45</th>
+                    <th>01:50 - 02:30</th>
+                    <th>02:35 - 03:15</th>
+                    <th>03:20 - 03:55</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td class="day-name">Sunday</td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">GEENG 1204</span>
+                            <span class="class-details">TSE (R-A 318)</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">GEENV 1205</span>
+                            <span class="class-details">MB (R-A 318)</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">GEENV 1205</span>
+                            <span class="class-details">MB (R-A 318)</span>
+                        </div>
+                    </td>
+
+                    <td class="empty">-</td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">MPG 1202</span>
+                            <span class="class-details">SN (R-A 315)</span>
+                        </div>
+                    </td>
+
+                    <td class="empty">-</td>
+                    <td class="empty">-</td>
+                    <td class="empty">-</td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">GESOC 1203</span>
+                            <span class="class-details">SP (R-A 318)</span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="day-name">Monday</td>
+                    <td colspan="9" class="no-class">No 2nd Semester Classes Scheduled</td>
+                </tr>
+
+                <tr>
+                    <td class="day-name">Tuesday</td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">GEENG 1204</span>
+                            <span class="class-details">TSE (R-A 315)</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">GEENG 1204</span>
+                            <span class="class-details">TSE (R-A 315)</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">MPG 1201</span>
+                            <span class="class-details">RHR (R-A 318)</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">MPG 1202</span>
+                            <span class="class-details">SN (R-A 318)</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">MPG 1202</span>
+                            <span class="class-details">SN (R-A 318)</span>
+                        </div>
+                    </td>
+
+                    <td class="empty">-</td>
+                    <td class="empty">-</td>
+                    <td class="empty">-</td>
+                    <td class="empty">-</td>
+                </tr>
+
+                <tr>
+                    <td class="day-name">Wednesday</td>
+                    <td colspan="9" class="no-class">No 2nd Semester Classes Scheduled</td>
+                </tr>
+
+                <tr>
+                    <td class="day-name">Thursday</td>
+
+                    <td class="empty">-</td>
+                    <td class="empty">-</td>
+                    <td class="empty">-</td>
+                    <td class="empty">-</td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">GEENV 1205</span>
+                            <span class="class-details">MB (R-A 316)</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">MPG 1201</span>
+                            <span class="class-details">RHR (R-A 316)</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">GESOC 1203</span>
+                            <span class="class-details">SP (R-A 318)</span>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="class-box">
+                            <span class="class-code">GESOC 1203</span>
+                            <span class="class-details">SP (R-A 318)</span>
+                        </div>
+                    </td>
+
+                    <td class="empty">-</td>
+                </tr>
+
+                <tr>
+                    <td class="day-name">Friday</td>
+                    <td colspan="9" class="no-class">Weekend / Off Day</td>
+                </tr>
+
+                <tr>
+                    <td class="day-name">Saturday</td>
+                    <td colspan="9" class="no-class">Weekend / Off Day</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="footer">
+        <img src="https://raw.githubusercontent.com/GB-SPG/gb-spg.github.io/28583bbf78138f344cf9e586c243b4b8c4922ebf/logo.png"
+             alt="Society of Politics and Governance Logo">
+        <span><strong>Society of Politics and Governance</strong></span>
+    </footer>
+
+    <button class="print-btn" type="button" onclick="window.print()">
+        Print / Save as PDF
+    </button>
+
+</div>
+</body>
+</html>
